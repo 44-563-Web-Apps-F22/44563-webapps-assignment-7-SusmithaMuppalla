@@ -1,0 +1,48 @@
+[9:05 AM] Kuntamukkala,Anvesh
+DROP DATABASE practice;
+CREATE DATABASE practice;
+USE practice;
+
+CREATE TABLE Customer
+(
+CustomerID INT NOT NULL,
+FirstName VARCHAR (30) NOT NULL,
+LastName VARCHAR (30),
+Address VARCHAR (40),
+City VARCHAR (20) DEFAULT 'Maryville',
+State CHAR (2) CHECK (State IN('MO')),
+Zipcode VARCHAR (9),
+
+PRIMARY KEY (CustomerID)
+);
+
+CREATE TABLE Orders
+(
+OrderID INT NOT NULL,
+OrderDate DATE DEFAULT (CURRENT_DATE),
+CustomerID INT,
+PRIMARY KEY(OrderID),
+FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID) ON DELETE RESTRICT ON UPDATE CASCADE
+
+);
+
+CREATE TABLE Product
+(
+ProductID INT NOT NULL PRIMARY KEY,
+Description VARCHAR (50),
+ProductFinish VARCHAR(20),
+Price NUMERIC(8,2),
+ProductLineID INT
+
+);
+
+CREATE TABLE OrderLine
+(
+    OrderID INT NOT NULL,
+    ProdictID INT NOT NULL,
+OrderQuantity INT,
+PRIMARY KEY(OrderID, ProductID),
+FOREIGN KEY(OrderID) REFERENCES Orders(OrderID) ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY(OrderID) REFERENCES Orders(OrderID) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
